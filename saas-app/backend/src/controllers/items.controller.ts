@@ -4,7 +4,7 @@ import type { AuthedRequest } from "../middleware/auth";
 import * as itemsService from "../services/items.service";
 
 const createSchema = z.object({
-  title: z.string().min(1, "Title is required").max(500),
+  title: z.string().min(1, "Укажите название").max(500),
 });
 
 export async function list(req: AuthedRequest, res: Response): Promise<void> {
@@ -14,7 +14,7 @@ export async function list(req: AuthedRequest, res: Response): Promise<void> {
     res.json({ items });
   } catch (e) {
     console.error(e);
-    res.status(500).json({ error: "Failed to load items" });
+    res.status(500).json({ error: "Не удалось загрузить записи" });
   }
 }
 
@@ -22,7 +22,7 @@ export async function create(req: AuthedRequest, res: Response): Promise<void> {
   const parsed = createSchema.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({
-      error: "Validation failed",
+      error: "Ошибка проверки данных",
       details: parsed.error.flatten(),
     });
     return;
@@ -34,14 +34,14 @@ export async function create(req: AuthedRequest, res: Response): Promise<void> {
     res.status(201).json({ item });
   } catch (e) {
     console.error(e);
-    res.status(500).json({ error: "Failed to create item" });
+    res.status(500).json({ error: "Не удалось создать запись" });
   }
 }
 
 export async function remove(req: AuthedRequest, res: Response): Promise<void> {
   const id = req.params.id;
   if (!id || !/^[0-9a-f-]{36}$/i.test(id)) {
-    res.status(400).json({ error: "Invalid id" });
+    res.status(400).json({ error: "Некорректный идентификатор" });
     return;
   }
 
@@ -51,6 +51,6 @@ export async function remove(req: AuthedRequest, res: Response): Promise<void> {
     res.status(204).send();
   } catch (e) {
     console.error(e);
-    res.status(500).json({ error: "Failed to delete item" });
+    res.status(500).json({ error: "Не удалось удалить запись" });
   }
 }

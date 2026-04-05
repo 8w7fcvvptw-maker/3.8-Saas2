@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { mapAuthErrorMessage } from "@/lib/auth-errors";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,8 +12,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
-  email: z.string().email("Enter a valid email"),
-  password: z.string().min(8, "At least 8 characters"),
+  email: z.string().email("Укажите корректный email"),
+  password: z.string().min(8, "Минимум 8 символов"),
 });
 
 type FormValues = z.infer<typeof schema>;
@@ -21,6 +22,7 @@ export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const redirect = searchParams.get("redirect") ?? "/dashboard";
+  const urlError = searchParams.get("error");
   const [formError, setFormError] = useState<string | null>(null);
 
   const {
@@ -37,7 +39,7 @@ export function LoginForm() {
       password: values.password,
     });
     if (error) {
-      setFormError(error.message);
+      setFormError(mapAuthErrorMessage(error.message));
       return;
     }
     router.push(redirect);
@@ -60,7 +62,7 @@ export function LoginForm() {
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="password">Password</Label>
+        <Label htmlFor="password">Пароль</Label>
         <Input
           id="password"
           type="password"
@@ -71,13 +73,18 @@ export function LoginForm() {
           <p className="text-sm text-destructive">{errors.password.message}</p>
         )}
       </div>
+      {urlError === "auth" && (
+        <p className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+          Не удалось завершить вход по ссылке. Попробуйте ещё раз или войдите вручную.
+        </p>
+      )}
       {formError && (
         <p className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
           {formError}
         </p>
       )}
       <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? "Signing in…" : "Sign in"}
+        {isSubmitting ? "Вход…" : "Войти"}
       </Button>
     </form>
   );

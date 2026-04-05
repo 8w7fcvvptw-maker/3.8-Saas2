@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ["@saas/shared"],
+  // @saas/shared — отдельная сборка tsc (dist/). transpilePackages для «пустого» типо-пакета
+  // давал runtime TypeError: Cannot read properties of undefined (reading 'call') в webpack.
 };
 
 export default nextConfig;

@@ -19,14 +19,14 @@ export async function requireAuth(
   next: NextFunction
 ): Promise<void> {
   if (!supabaseUrl || !supabaseAnonKey) {
-    res.status(500).json({ error: "Server missing Supabase configuration" });
+    res.status(500).json({ error: "На сервере не настроен Supabase" });
     return;
   }
 
   const header = req.headers.authorization;
   const token = header?.startsWith("Bearer ") ? header.slice(7) : null;
   if (!token) {
-    res.status(401).json({ error: "Missing or invalid Authorization header" });
+    res.status(401).json({ error: "Нет или неверный заголовок Authorization" });
     return;
   }
 
@@ -41,7 +41,7 @@ export async function requireAuth(
   } = await supabase.auth.getUser(token);
 
   if (error || !user) {
-    res.status(401).json({ error: "Invalid or expired session" });
+    res.status(401).json({ error: "Сессия недействительна или истекла" });
     return;
   }
 

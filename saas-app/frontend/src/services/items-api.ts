@@ -15,7 +15,7 @@ export async function fetchItems(accessToken: string): Promise<Item[]> {
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error((err as { error?: string }).error ?? "Failed to load items");
+    throw new Error((err as { error?: string }).error ?? "Не удалось загрузить записи");
   }
   const data = (await res.json()) as { items: Item[] };
   return data.items;
@@ -32,7 +32,7 @@ export async function createItemApi(
   });
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
-    throw new Error((err as { error?: string }).error ?? "Failed to create item");
+    throw new Error((err as { error?: string }).error ?? "Не удалось создать запись");
   }
   const data = (await res.json()) as { item: Item };
   return data.item;
@@ -48,6 +48,6 @@ export async function deleteItemApi(
   });
   if (!res.ok && res.status !== 204) {
     const err = await res.json().catch(() => ({}));
-    throw new Error((err as { error?: string }).error ?? "Failed to delete item");
+    throw new Error((err as { error?: string }).error ?? "Не удалось удалить запись");
   }
 }

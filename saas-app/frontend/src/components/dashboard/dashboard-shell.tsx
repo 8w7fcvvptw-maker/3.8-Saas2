@@ -9,7 +9,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
-const nav = [{ href: "/dashboard", label: "Overview", icon: LayoutDashboard }];
+const nav = [{ href: "/dashboard", label: "Обзор", icon: LayoutDashboard }];
 
 export function DashboardShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -61,7 +61,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         </nav>
         <div className="mt-auto shrink-0 border-t p-3">
           <p className="truncate px-3 pb-2 text-xs text-muted-foreground">
-            {user?.email ?? "Signed in"}
+            {user?.email ?? "Вы вошли"}
           </p>
           <Button
             variant="outline"
@@ -69,7 +69,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             onClick={signOut}
           >
             <LogOut className="h-4 w-4" />
-            Log out
+            Выйти
           </Button>
         </div>
       </aside>
@@ -78,7 +78,7 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
         <button
           type="button"
           className="fixed inset-0 z-30 bg-black/40 md:hidden"
-          aria-label="Close menu"
+          aria-label="Закрыть меню"
           onClick={() => setMobileOpen(false)}
         />
       )}
@@ -89,11 +89,11 @@ export function DashboardShell({ children }: { children: React.ReactNode }) {
             variant="ghost"
             size="icon"
             onClick={() => setMobileOpen((o) => !o)}
-            aria-label="Toggle menu"
+            aria-label="Открыть меню"
           >
             <Menu className="h-5 w-5" />
           </Button>
-          <span className="text-sm font-medium">Dashboard</span>
+          <span className="text-sm font-medium">Панель</span>
           <span className="w-10" />
         </header>
         <main className="flex-1 p-4 md:p-8">{children}</main>

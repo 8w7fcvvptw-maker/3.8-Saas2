@@ -31,7 +31,7 @@ export async function createItem(
     data: { user },
     error: userErr,
   } = await supabase.auth.getUser(accessToken);
-  if (userErr || !user) throw userErr ?? new Error("Unauthorized");
+  if (userErr || !user) throw userErr ?? new Error("Нет доступа");
 
   const { data, error } = await supabase
     .from("items")

@@ -37,7 +37,7 @@ export function ItemsPanel() {
       const data = await fetchItems(session.access_token);
       setItems(data);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load items");
+      setError(e instanceof Error ? e.message : "Не удалось загрузить записи");
     } finally {
       setLoading(false);
     }
@@ -62,7 +62,7 @@ export function ItemsPanel() {
       setItems((prev) => [item, ...prev]);
       setTitle("");
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not create item");
+      setError(e instanceof Error ? e.message : "Не удалось создать запись");
     } finally {
       setSaving(false);
     }
@@ -75,7 +75,7 @@ export function ItemsPanel() {
       await deleteItemApi(session.access_token, id);
       setItems((prev) => prev.filter((i) => i.id !== id));
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Could not delete item");
+      setError(e instanceof Error ? e.message : "Не удалось удалить запись");
     }
   };
 
@@ -91,25 +91,25 @@ export function ItemsPanel() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Your items</CardTitle>
+        <CardTitle>Ваши записи</CardTitle>
         <CardDescription>
-          Stored in Supabase with RLS — each row is scoped to your user id.
+          Данные в Supabase с RLS — каждая строка привязана к вашему пользователю.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <form onSubmit={addItem} className="flex flex-col gap-4 sm:flex-row sm:items-end">
           <div className="flex-1 space-y-2">
-            <Label htmlFor="new-title">New item</Label>
+            <Label htmlFor="new-title">Новая запись</Label>
             <Input
               id="new-title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="e.g. Follow up with design"
+              placeholder="Например: созвон с дизайном"
               maxLength={500}
             />
           </div>
           <Button type="submit" disabled={saving || !title.trim()}>
-            {saving ? "Adding…" : "Add item"}
+            {saving ? "Добавление…" : "Добавить"}
           </Button>
         </form>
 
@@ -126,8 +126,8 @@ export function ItemsPanel() {
           </div>
         ) : items.length === 0 ? (
           <p className="text-sm text-muted-foreground">
-            No items yet. Add one above — data is fetched from the Express API
-            using your Supabase JWT.
+            Пока пусто. Добавьте запись выше — данные приходят с API Express с вашим
+            JWT Supabase.
           </p>
         ) : (
           <ul className="divide-y rounded-lg border">
@@ -139,7 +139,10 @@ export function ItemsPanel() {
                 <div>
                   <p className="font-medium leading-tight">{item.title}</p>
                   <p className="text-xs text-muted-foreground">
-                    {new Date(item.created_at).toLocaleString()}
+                    {new Date(item.created_at).toLocaleString("ru-RU", {
+                      dateStyle: "short",
+                      timeStyle: "short",
+                    })}
                   </p>
                 </div>
                 <Button
@@ -148,7 +151,7 @@ export function ItemsPanel() {
                   size="icon"
                   className="text-muted-foreground hover:text-destructive"
                   onClick={() => void remove(item.id)}
-                  aria-label="Delete item"
+                  aria-label="Удалить запись"
                 >
                   <Trash2 className="h-4 w-4" />
                 </Button>

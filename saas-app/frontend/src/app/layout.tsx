@@ -10,7 +10,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "SaaS Starter",
-  description: "Next.js + Supabase + Express SaaS template",
+  description: "Шаблон SaaS: Next.js, Supabase и Express",
 };
 
 export default function RootLayout({
@@ -19,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ru" suppressHydrationWarning>
       <body className={`${inter.variable} min-h-screen font-sans`}>
         <AuthProvider>{children}</AuthProvider>
       </body>

@@ -10,10 +10,10 @@ export default function LandingPage() {
           <span className="text-lg font-semibold tracking-tight">SaaS Starter</span>
           <div className="flex items-center gap-2">
             <Button variant="ghost" asChild>
-              <Link href="/login">Log in</Link>
+              <Link href="/login">Войти</Link>
             </Button>
             <Button asChild>
-              <Link href="/register">Get started</Link>
+              <Link href="/register">Начать</Link>
             </Button>
           </div>
         </div>
@@ -26,20 +26,20 @@ export default function LandingPage() {
               Next.js · Supabase · TypeScript
             </p>
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-              Ship a secure multi-tenant SaaS faster
+              Запускайте безопасный мультитенантный SaaS быстрее
             </h1>
             <p className="max-w-xl text-lg text-muted-foreground">
-              Email/password auth, row-level security, and a clean dashboard with
-              item CRUD — production patterns you can extend.
+              Вход по email и паролю, изоляция данных на уровне строк (RLS) и
+              аккуратный дашборд с CRUD — готовые паттерны, которые можно развивать.
             </p>
             <div className="flex flex-wrap gap-3">
               <Button size="lg" asChild>
                 <Link href="/register">
-                  Start free <ArrowRight className="ml-1" />
+                  Попробовать бесплатно <ArrowRight className="ml-1" />
                 </Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/login">I already have an account</Link>
+                <Link href="/login">У меня уже есть аккаунт</Link>
               </Button>
             </div>
           </div>
@@ -49,9 +49,9 @@ export default function LandingPage() {
                 <Shield className="h-5 w-5" />
               </div>
               <div>
-                <h2 className="font-semibold">RLS by default</h2>
+                <h2 className="font-semibold">RLS по умолчанию</h2>
                 <p className="text-sm text-muted-foreground">
-                  PostgreSQL policies ensure users only see their own rows.
+                  Политики PostgreSQL: каждый пользователь видит только свои строки.
                 </p>
               </div>
             </div>
@@ -60,9 +60,9 @@ export default function LandingPage() {
                 <LayoutDashboard className="h-5 w-5" />
               </div>
               <div>
-                <h2 className="font-semibold">Dashboard ready</h2>
+                <h2 className="font-semibold">Готовый дашборд</h2>
                 <p className="text-sm text-muted-foreground">
-                  Sidebar layout, loading states, and validated API layer.
+                  Боковая панель, состояния загрузки и проверка данных на API.
                 </p>
               </div>
             </div>
@@ -71,7 +71,7 @@ export default function LandingPage() {
       </main>
 
       <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-        Built with Next.js App Router and Supabase Auth.
+        Собрано на Next.js App Router и Supabase Auth.
       </footer>
     </div>
   );

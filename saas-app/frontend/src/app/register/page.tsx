@@ -14,23 +14,23 @@ export default function RegisterPage() {
     <div className="flex min-h-screen flex-col items-center justify-center bg-muted/30 px-4">
       <Card className="w-full max-w-md shadow-md">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-2xl">Create your account</CardTitle>
+          <CardTitle className="text-2xl">Создайте аккаунт</CardTitle>
           <CardDescription>
-            Use a strong password. You can enable email confirmation in Supabase.
+            Используйте надёжный пароль. Подтверждение email настраивается в Supabase.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <RegisterForm />
           <p className="text-center text-sm text-muted-foreground">
-            Already registered?{" "}
+            Уже зарегистрированы?{" "}
             <Button variant="link" className="h-auto p-0" asChild>
-              <Link href="/login">Sign in</Link>
+              <Link href="/login">Войти</Link>
             </Button>
           </p>
         </CardContent>
       </Card>
       <Button variant="ghost" className="mt-6" asChild>
-        <Link href="/">← Back to home</Link>
+        <Link href="/">← На главную</Link>
       </Button>
     </div>
   );

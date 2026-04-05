@@ -1,6 +1,7 @@
 "use client";
 
 import { createClient } from "@/lib/supabase/client";
+import { mapAuthErrorMessage } from "@/lib/auth-errors";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,12 +13,12 @@ import { z } from "zod";
 
 const schema = z
   .object({
-    email: z.string().email("Enter a valid email"),
-    password: z.string().min(8, "At least 8 characters"),
+    email: z.string().email("Укажите корректный email"),
+    password: z.string().min(8, "Минимум 8 символов"),
     confirm: z.string(),
   })
   .refine((data) => data.password === data.confirm, {
-    message: "Passwords must match",
+    message: "Пароли должны совпадать",
     path: ["confirm"],
   });
 
@@ -47,7 +48,7 @@ export function RegisterForm() {
       },
     });
     if (error) {
-      setFormError(error.message);
+      setFormError(mapAuthErrorMessage(error.message));
       return;
     }
     if (data.session) {
@@ -56,7 +57,7 @@ export function RegisterForm() {
       return;
     }
     setInfo(
-      "Check your inbox to confirm your email, or sign in if confirmation is disabled in Supabase."
+      "Проверьте почту и перейдите по ссылке для подтверждения. Если подтверждение отключено в Supabase, войдите сразу после регистрации."
     );
   };
 
@@ -76,7 +77,7 @@ export function RegisterForm() {
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="reg-password">Password</Label>
+        <Label htmlFor="reg-password">Пароль</Label>
         <Input
           id="reg-password"
           type="password"
@@ -88,7 +89,7 @@ export function RegisterForm() {
         )}
       </div>
       <div className="space-y-2">
-        <Label htmlFor="confirm">Confirm password</Label>
+        <Label htmlFor="confirm">Повтор пароля</Label>
         <Input
           id="confirm"
           type="password"
@@ -110,7 +111,7 @@ export function RegisterForm() {
         </p>
       )}
       <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? "Creating account…" : "Create account"}
+        {isSubmitting ? "Создание…" : "Зарегистрироваться"}
       </Button>
     </form>
   );
