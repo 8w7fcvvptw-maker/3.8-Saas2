@@ -1,0 +1,19 @@
+{
+  "name": "saas-app",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently -n frontend,backend -c cyan,magenta \"npm run dev --workspace=@saas/frontend\" \"npm run dev --workspace=@saas/backend\"",
+    "build": "npm run build --workspace=@saas/shared && npm run build --workspace=@saas/backend && npm run build --workspace=@saas/frontend",
+    "start": "concurrently \"npm run start --workspace=@saas/frontend\" \"npm run start --workspace=@saas/backend\"",
+    "lint": "npm run lint --workspace=@saas/frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.2"
+  }
+}
